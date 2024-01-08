@@ -13,8 +13,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        input = findViewById(R.id.input)
-        output = findViewById(R.id.output)
+        input = findViewById(R.id.edInput)
+        output = findViewById(R.id.edOutput)
         val btConvert: Button = findViewById(R.id.btConvert)
         val btClear: Button = findViewById(R.id.btClear)
         btConvert.setOnClickListener(this::convert)
