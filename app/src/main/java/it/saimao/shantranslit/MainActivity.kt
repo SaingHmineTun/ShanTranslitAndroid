@@ -36,16 +36,20 @@ class MainActivity : AppCompatActivity() {
 //            output.setText(result)
 //        }
 
+        val test = input.text.toString().replace("[${TaiLeSyllableSegmentation.endWordChar}]".toRegex(), "");
+
         val start = System.currentTimeMillis();
-        var result: String = TaiLeSyllableBreaker.syllable_break(input.text.toString());
+        var result: String = TaiLeSyllableBreaker.syllable_break(test);
         result = "Time took - ${(System.currentTimeMillis() - start)}\n$result"
         output.setText(result)
 
     }
 
     private fun clear(view: View?) {
+        val test = input.text.toString().replace("[${TaiLeSyllableSegmentation.endWordChar}]".toRegex(), "");
+
         val start = System.currentTimeMillis();
-        var result: String = TaiLeSyllableSegmentation.segmentAsStringWithDelimiter(input.text.toString(), " ");
+        var result: String = TaiLeSyllableSegmentation.segmentAsStringWithDelimiter(test, " ");
         result = "Time took - ${(System.currentTimeMillis() - start)}\n$result"
         output.setText(result)
 //        if (input.text.isNotEmpty())

@@ -25,8 +25,6 @@ public class TaiLeSyllableSegmentation {
         String segmentString = Arrays.stream(outputs)
                 .map(s -> s.concat(delimiter))
                 .collect(Collectors.joining())
-                // In Tai Le, There's no single consonant standing
-                .replaceAll("(" + delimiter + ")([" + consonants + "])(" + delimiter + ")", "$2$3")
                 .replaceAll("(" + delimiter + ")+", "$1");
         return segmentString.trim();
     }
