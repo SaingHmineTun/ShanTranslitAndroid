@@ -4,7 +4,7 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@color/bgColor"
+              android:background="@color/rbColor"
               android:orientation="vertical"
               android:paddingBottom="10dp"
               android:weightSum="1"
@@ -23,12 +23,13 @@
 
         <RadioButton
                 android:layout_marginEnd="5dp"
-                android:id="@+id/rbUni2Zg"
+                android:id="@+id/rbShanToEng"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:layout_weight="0.5"
                 android:background="@drawable/radio_flat_selector"
                 android:button="@android:color/transparent"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:gravity="center"
                 android:checked="true"
                 android:textColor="#fff"
@@ -36,12 +37,13 @@
 
         <RadioButton
                 android:layout_marginStart="5dp"
-                android:id="@+id/rbZg2Uni"
+                android:id="@+id/rbEngToShan"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:layout_weight="0.5"
                 android:background="@drawable/radio_flat_selector"
                 android:button="@android:color/transparent"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:gravity="center"
                 android:textColor="@color/colorLight"
                 android:text="Eng to Shan"/>
@@ -59,6 +61,7 @@
                 android:layout_height="match_parent"
                 android:gravity="top"
                 android:hint="Input"
+                android:textColorHint="#fff"
                 android:padding="10dp">
 
 
@@ -87,10 +90,12 @@
                 android:layout_height="48dp"
                 android:layout_marginEnd="5dp"
                 android:layout_weight="1"
-                android:text="Convert"
+                android:text="CONVERT"
                 android:textColor="#fff"
                 app:backgroundTint="@null"
-                android:background="@color/rbColor"/>
+                android:background="@drawable/radio_flat_selector"
+                android:foreground="?android:attr/selectableItemBackgroundBorderless"
+        />
 
         <com.google.android.material.button.MaterialButton
                 android:id="@+id/btClear"
@@ -99,11 +104,13 @@
                 android:layout_height="48dp"
                 android:layout_marginLeft="5dp"
                 android:layout_weight="1"
-                android:text="Clear"
+                android:text="CLEAR"
                 android:textColor="#fff"
 
                 app:backgroundTint="@null"
-                android:background="@color/rbColor"/>
+                android:background="@drawable/radio_flat_selector"
+                android:foreground="?android:attr/selectableItemBackground"
+        />
     </LinearLayout>
 
     <LinearLayout
@@ -117,8 +124,8 @@
                 android:id="@+id/edOutputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignParentTop="true"
                 android:hint="Output"
+                android:textColorHint="#fff"
                 android:padding="10dp">
 
             <com.google.android.material.textfield.TextInputEditText
