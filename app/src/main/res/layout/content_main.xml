@@ -19,7 +19,9 @@
             android:layout_marginBottom="0dp"
             android:orientation="horizontal"
             android:padding="10dp"
-            android:weightSum="1">
+            android:weightSum="1"
+            android:visibility="gone"
+    >
 
         <RadioButton
                 android:layout_marginEnd="5dp"
@@ -90,7 +92,7 @@
                 android:layout_height="48dp"
                 android:layout_marginEnd="5dp"
                 android:layout_weight="1"
-                android:text="CONVERT"
+                android:text="BREAK 1"
                 android:textColor="#fff"
                 app:backgroundTint="@null"
                 android:background="@drawable/radio_flat_selector"
@@ -104,7 +106,7 @@
                 android:layout_height="48dp"
                 android:layout_marginLeft="5dp"
                 android:layout_weight="1"
-                android:text="CLEAR"
+                android:text="BREAK 2"
                 android:textColor="#fff"
 
                 app:backgroundTint="@null"

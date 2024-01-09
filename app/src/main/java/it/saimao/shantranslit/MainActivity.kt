@@ -7,6 +7,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioButton
 import it.saimao.shantranslit.utils.ShanTranslit
+import it.saimao.shantranslit.utils.TaiLeSyllableBreaker
+import it.saimao.shantranslit.utils.TaiLeSyllableSegmentation
 
 class MainActivity : AppCompatActivity() {
     private lateinit var input: EditText
@@ -28,18 +30,27 @@ class MainActivity : AppCompatActivity() {
 
     private fun convert(view: View?) {
 
-        if (input.text.isNotEmpty()) {
-            val result: String =
-                if (rbS2E.isChecked) ShanTranslit.taiToEng(input.text.toString()) else ShanTranslit.engToTai(input.text.toString())
-            output.setText(result)
-        }
+//        if (input.text.isNotEmpty()) {
+//            val result: String =
+//                if (rbS2E.isChecked) ShanTranslit.taiToEng(input.text.toString()) else ShanTranslit.engToTai(input.text.toString())
+//            output.setText(result)
+//        }
+
+        val start = System.currentTimeMillis();
+        var result: String = TaiLeSyllableBreaker.syllable_break(input.text.toString());
+        result = "Time took - ${(System.currentTimeMillis() - start)}\n$result"
+        output.setText(result)
 
     }
 
     private fun clear(view: View?) {
-        if (input.text.isNotEmpty())
-            input.text.clear()
-
-        if (output.text.isNotEmpty()) output.text.clear()
+        val start = System.currentTimeMillis();
+        var result: String = TaiLeSyllableSegmentation.segmentAsStringWithDelimiter(input.text.toString(), " ");
+        result = "Time took - ${(System.currentTimeMillis() - start)}\n$result"
+        output.setText(result)
+//        if (input.text.isNotEmpty())
+//            input.text.clear()
+//
+//        if (output.text.isNotEmpty()) output.text.clear()
     }
 }
