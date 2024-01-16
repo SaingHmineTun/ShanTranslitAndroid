@@ -1,4 +1,4 @@
-package it.saimao.shantranslit
+package it.saimao.taile_wordbreak
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

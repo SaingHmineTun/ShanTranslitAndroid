@@ -1,4 +1,4 @@
-package it.saimao.shantranslit.utils;
+package it.saimao.taile_wordbreak.utils;
 /*
 Version 2.2
  */

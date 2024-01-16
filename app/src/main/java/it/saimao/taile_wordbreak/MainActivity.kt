@@ -1,4 +1,4 @@
-package it.saimao.shantranslit
+package it.saimao.taile_wordbreak
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,9 +6,8 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioButton
-import it.saimao.shantranslit.utils.V1_TaiLeSyllableBreaker
-import it.saimao.shantranslit.utils.V2_TaiLeSyllableSegmentation
-
+import it.saimao.taile_wordbreak.utils.V1_TaiLeSyllableBreaker
+import it.saimao.taile_wordbreak.utils.V2_TaiLeSyllableSegmentation
 class MainActivity : AppCompatActivity() {
     private lateinit var input: EditText
     private lateinit var output: EditText

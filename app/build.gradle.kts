@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "it.saimao.shantranslit"
+    namespace = "it.saimao.taile_wordbreak"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "it.saimao.shantranslit"
+        applicationId = "it.saimao.taile_wordbreak"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

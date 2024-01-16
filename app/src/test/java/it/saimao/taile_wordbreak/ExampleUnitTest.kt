@@ -1,4 +1,4 @@
-package it.saimao.shantranslit
+package it.saimao.taile_wordbreak
 
 import org.junit.Test
 
