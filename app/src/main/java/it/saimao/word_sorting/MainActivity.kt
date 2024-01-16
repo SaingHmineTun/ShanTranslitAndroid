@@ -1,4 +1,4 @@
-package it.saimao.shantranslit
+package it.saimao.word_sorting
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,8 +6,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioButton
-import it.saimao.shantranslit.utils.V1_TaiLeSyllableBreaker
-import it.saimao.shantranslit.utils.V2_TaiLeSyllableSegmentation
+import it.saimao.word_sorting.utils.ShanWordSorting
 
 class MainActivity : AppCompatActivity() {
     private lateinit var input: EditText
@@ -28,22 +27,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun convert(view: View?) {
-//        val test = input.text.toString().replace("[${V2_TaiLeSyllableSegmentation.endWordChar}]".toRegex(), "");
 
-        val test = input.text.toString()
-        val start = System.currentTimeMillis();
-        var result: String = V1_TaiLeSyllableBreaker.syllable_break(test);
-        result = "Time took - ${(System.currentTimeMillis() - start)}\n$result"
-        output.setText(result)
+        if (input.text.isNotEmpty()) {
+            var textString = input.text.trim().replace("\n".toRegex(), "\u0020");
+            val texts: List<String> = textString.split("\u0020").sortedWith(ShanWordSorting())
+            var result: String = ""
+            for (text in texts) {
+                result += " $text"
+            }
+            output.setText(result)
+        }
 
     }
 
     private fun clear(view: View?) {
-//        val test = input.text.toString().replace("[${V2_TaiLeSyllableSegmentation.endWordChar}]".toRegex(), "");
-        val test = input.text.toString()
-        val start = System.currentTimeMillis();
-        var result: String = V2_TaiLeSyllableSegmentation.segmentAsStringWithDelimiter(test, " ");
-        result = "Time took - ${(System.currentTimeMillis() - start)}\n$result"
-        output.setText(result)
+        input.text.clear()
+        output.text.clear()
     }
 }

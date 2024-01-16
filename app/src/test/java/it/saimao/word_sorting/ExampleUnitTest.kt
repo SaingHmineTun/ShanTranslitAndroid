@@ -1,4 +1,4 @@
-package it.saimao.shantranslit
+package it.saimao.word_sorting
 
 import org.junit.Test
 

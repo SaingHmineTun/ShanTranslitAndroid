@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "it.saimao.shantranslit"
+    namespace = "it.saimao.word_sorting"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "it.saimao.shantranslit"
+        applicationId = "it.saimao.word_sorting"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

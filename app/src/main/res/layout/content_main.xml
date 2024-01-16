@@ -92,7 +92,7 @@
                 android:layout_height="48dp"
                 android:layout_marginEnd="5dp"
                 android:layout_weight="1"
-                android:text="BREAK 1"
+                android:text="SORT"
                 android:textColor="#fff"
                 app:backgroundTint="@null"
                 android:background="@drawable/radio_flat_selector"
@@ -106,7 +106,7 @@
                 android:layout_height="48dp"
                 android:layout_marginLeft="5dp"
                 android:layout_weight="1"
-                android:text="BREAK 2"
+                android:text="CLEAR"
                 android:textColor="#fff"
 
                 app:backgroundTint="@null"
