@@ -2,7 +2,7 @@ package it.saimao.shantranslit.utils;
 /*
 Version 2.2
  */
-public class TaiLeSyllableBreaker {
+public class V1_TaiLeSyllableBreaker {
 
     public static String syllable_break(String input) {
         String result = input.replaceAll("([\\u0028\\u005b\\u007b\\u003c])", "$1\u0020");

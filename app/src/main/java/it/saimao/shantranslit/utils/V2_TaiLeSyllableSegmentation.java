@@ -3,7 +3,7 @@ package it.saimao.shantranslit.utils;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-public class TaiLeSyllableSegmentation {
+public class V2_TaiLeSyllableSegmentation {
 
     public static String consonants = "\u1950-\u1962";
     public static final String enChar = "a-zA-Z0-9";
@@ -25,8 +25,13 @@ public class TaiLeSyllableSegmentation {
         String segmentString = Arrays.stream(outputs)
                 .map(s -> s.concat(delimiter))
                 .collect(Collectors.joining())
+                // In Tai Le, There's no single consonant standing
+                .replaceAll("(" + delimiter + ")([" + consonants + "])(" + delimiter + ")", "$2$3")
                 .replaceAll("(" + delimiter + ")+", "$1");
         return segmentString.trim();
     }
 
+    public static String segmentAsString(String input) {
+        return segmentAsStringWithDelimiter(input, " ");
+    }
 }

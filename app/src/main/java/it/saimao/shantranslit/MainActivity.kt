@@ -6,9 +6,8 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioButton
-import it.saimao.shantranslit.utils.ShanTranslit
-import it.saimao.shantranslit.utils.TaiLeSyllableBreaker
-import it.saimao.shantranslit.utils.TaiLeSyllableSegmentation
+import it.saimao.shantranslit.utils.V1_TaiLeSyllableBreaker
+import it.saimao.shantranslit.utils.V2_TaiLeSyllableSegmentation
 
 class MainActivity : AppCompatActivity() {
     private lateinit var input: EditText
@@ -29,32 +28,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun convert(view: View?) {
+//        val test = input.text.toString().replace("[${V2_TaiLeSyllableSegmentation.endWordChar}]".toRegex(), "");
 
-//        if (input.text.isNotEmpty()) {
-//            val result: String =
-//                if (rbS2E.isChecked) ShanTranslit.taiToEng(input.text.toString()) else ShanTranslit.engToTai(input.text.toString())
-//            output.setText(result)
-//        }
-
-        val test = input.text.toString().replace("[${TaiLeSyllableSegmentation.endWordChar}]".toRegex(), "");
-
+        val test = input.text.toString()
         val start = System.currentTimeMillis();
-        var result: String = TaiLeSyllableBreaker.syllable_break(test);
+        var result: String = V1_TaiLeSyllableBreaker.syllable_break(test);
         result = "Time took - ${(System.currentTimeMillis() - start)}\n$result"
         output.setText(result)
 
     }
 
     private fun clear(view: View?) {
-        val test = input.text.toString().replace("[${TaiLeSyllableSegmentation.endWordChar}]".toRegex(), "");
-
+//        val test = input.text.toString().replace("[${V2_TaiLeSyllableSegmentation.endWordChar}]".toRegex(), "");
+        val test = input.text.toString()
         val start = System.currentTimeMillis();
-        var result: String = TaiLeSyllableSegmentation.segmentAsStringWithDelimiter(test, " ");
+        var result: String = V2_TaiLeSyllableSegmentation.segmentAsStringWithDelimiter(test, " ");
         result = "Time took - ${(System.currentTimeMillis() - start)}\n$result"
         output.setText(result)
-//        if (input.text.isNotEmpty())
-//            input.text.clear()
-//
-//        if (output.text.isNotEmpty()) output.text.clear()
     }
 }
