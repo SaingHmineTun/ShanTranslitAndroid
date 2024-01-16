@@ -29,13 +29,13 @@ class MainActivity : AppCompatActivity() {
     private fun convert(view: View?) {
 
         if (input.text.isNotEmpty()) {
-            var textString = input.text.trim().replace("\n".toRegex(), "\u0020");
+            val textString = input.text.trim().replace("\n".toRegex(), "\u0020");
             val texts: List<String> = textString.split("\u0020").sortedWith(ShanWordSorting())
             var result: String = ""
             for (text in texts) {
                 result += " $text"
             }
-            output.setText(result)
+            output.setText(result.trim())
         }
 
     }
