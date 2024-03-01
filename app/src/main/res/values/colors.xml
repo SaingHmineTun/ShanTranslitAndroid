@@ -20,8 +20,8 @@
     <color name="colorAccent">#c8e8ff</color>
     <color name="background">#d0b6b6</color>
     <color name="btColor">#541E1B</color>
-    <color name="rbColor">#420C09</color>
-    <color name="rbColorSelected">#990F02</color>
-    <color name="bgColor">#7E2811</color>
+    <color name="rbColor">#420F19</color>
+    <color name="rbColorSelected">#771F02</color>
+    <color name="bgColor">#887E2811</color>
 
 </resources>
