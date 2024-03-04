@@ -3,6 +3,8 @@ package it.saimao.shantranslit
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.widget.CompoundButton
 import android.widget.EditText
 import android.widget.RadioButton
@@ -12,13 +14,15 @@ import androidx.core.view.children
 import it.saimao.shantranslit.databinding.ActivityMainBinding
 import it.saimao.shantranslit.utils.ShanTranslit
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener {
     private lateinit var input: EditText
     private lateinit var output: EditText
     private lateinit var binding: ActivityMainBinding
 
+
     private lateinit var rg1: RadioGroup
     private lateinit var rg2: RadioGroup
+
     private lateinit var rb1: RadioButton
     private lateinit var rb2: RadioButton
     private lateinit var rb3: RadioButton
@@ -40,6 +44,9 @@ class MainActivity : AppCompatActivity() {
         btConvert.setOnClickListener(this::convert)
         btClear.setOnClickListener(this::clear)
         btCopy.setOnClickListener(this::copy)
+
+        binding.layoutMain.rbShnToEng.setOnCheckedChangeListener(this)
+        binding.layoutMain.rbEngToShn.setOnCheckedChangeListener(this)
 
         rg1 = binding.layoutMain.rg1
         rg2 = binding.layoutMain.rg2
@@ -73,9 +80,8 @@ class MainActivity : AppCompatActivity() {
             rb4.setText("တႆး(tái)")
             rb5.setText("တႆး\ntai")
             rb6.setText("တႆး\ntái")
-        } else {
-
         }
+
     }
 
     private fun copy(view: View?) {
@@ -100,18 +106,23 @@ class MainActivity : AppCompatActivity() {
                     rb4.isChecked -> result =
                         ShanTranslit.taiToEngWithToneSideBySide(input.text.toString())
 
-                    rb5.isChecked -> result =
-                        input.text.toString() + "\n" + ShanTranslit.taiToEngWithoutTone(input.text.toString())
+                    rb5.isChecked -> {
+                        val converted =
+                            ShanTranslit.taiToEngWithoutToneUpsideDown(input.text.toString())
+                        result = converted.shan + "\n" + converted.eng
+                    }
 
-                    rb6.isChecked -> result =
-                        input.text.toString() + "\n" + ShanTranslit.taiToEngWithTone(input.text.toString())
+                    rb6.isChecked -> {
+                        val converted =
+                            ShanTranslit.taiToEngWithToneUpsideDown(input.text.toString())
+                        result = converted.shan + "\n" + converted.eng
+                    }
                 }
             } else {
-
+                result = ShanTranslit.engToShn(input.text.toString())
             }
 
             output.setText(result)
-            Log.d("Kham", result)
         }
 
     }
@@ -119,7 +130,11 @@ class MainActivity : AppCompatActivity() {
     private fun clear(view: View?) {
         if (input.text.isNotEmpty())
             input.text.clear()
-
         if (output.text.isNotEmpty()) output.text.clear()
+    }
+
+    override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
+        binding.layoutMain.rg.visibility =
+            if (binding.layoutMain.rbShnToEng.isChecked) VISIBLE else GONE
     }
 }
