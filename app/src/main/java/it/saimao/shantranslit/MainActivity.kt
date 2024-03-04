@@ -81,18 +81,18 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
 
     private fun enableRadioButtons() {
         if (binding.layoutMain.rbShnToEng.isChecked) {
-            rb1.setText("tai")
-            rb2.setText("tái")
-            rb3.setText("တႆး(tai)")
-            rb4.setText("တႆး(tái)")
-            rb5.setText("တႆး\ntai")
-            rb6.setText("တႆး\ntái")
+            rb1.text = "tai"
+            rb2.text = "tái"
+            rb3.text = "တႆး(tai)"
+            rb4.text = "တႆး(tái)"
+            rb5.text = "တႆး\ntai"
+            rb6.text = "တႆး\ntái"
         }
 
     }
 
     private fun copy(view: View?) {
-        val text: String = output.getText().toString()
+        val text: String = output.text.toString()
         if (text.isEmpty()) {
             Toast.makeText(this, "No Output Text to be Copied!!", Toast.LENGTH_SHORT).show()
             return
