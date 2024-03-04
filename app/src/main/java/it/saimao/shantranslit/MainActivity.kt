@@ -1,7 +1,8 @@
 package it.saimao.shantranslit
 
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -9,10 +10,12 @@ import android.widget.CompoundButton
 import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.children
 import it.saimao.shantranslit.databinding.ActivityMainBinding
 import it.saimao.shantranslit.utils.ShanTranslit
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
 
 class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener {
     private lateinit var input: EditText
@@ -29,10 +32,10 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
     private lateinit var rb4: RadioButton
     private lateinit var rb5: RadioButton
     private lateinit var rb6: RadioButton
+    private lateinit var executorService: ExecutorService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -68,8 +71,12 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
         rb5 = binding.layoutMain.rb5
         rb6 = binding.layoutMain.rb6
         rb1.isChecked = true
-
         enableRadioButtons()
+        enableService()
+    }
+
+    private fun enableService() {
+        executorService = Executors.newSingleThreadExecutor()
     }
 
     private fun enableRadioButtons() {
@@ -85,44 +92,77 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
     }
 
     private fun copy(view: View?) {
-        TODO("Not yet implemented")
+        val text: String = output.getText().toString()
+        if (text.isEmpty()) {
+            Toast.makeText(this, "No Output Text to be Copied!!", Toast.LENGTH_SHORT).show()
+            return
+        }
+        val clipboard = this.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
+        val clip = ClipData.newPlainText("Copied Text", text)
+        clipboard.setPrimaryClip(clip)
+        Toast.makeText(this, "Output Text Copied Successfully!", Toast.LENGTH_SHORT).show()
+
     }
 
     private fun convert(view: View?) {
 
         if (input.text.isNotEmpty()) {
 
-            var result = ""
 
             if (binding.layoutMain.rbShnToEng.isChecked) {
                 when {
-                    rb1.isChecked -> result =
+                    rb1.isChecked -> output.setText(
                         ShanTranslit.taiToEngWithoutTone(input.text.toString())
+                    )
 
-                    rb2.isChecked -> result = ShanTranslit.taiToEngWithTone(input.text.toString())
-                    rb3.isChecked -> result =
-                        ShanTranslit.taiToEngWithoutToneSideBySide(input.text.toString())
+                    rb2.isChecked -> output.setText(
+                        ShanTranslit.taiToEngWithTone(input.text.toString())
+                    )
 
-                    rb4.isChecked -> result =
-                        ShanTranslit.taiToEngWithToneSideBySide(input.text.toString())
+                    rb3.isChecked -> {
+                        binding.layoutMain.loading.visibility = VISIBLE
+                        binding.layoutMain.ui.alpha = 0.3f
+                        executorService.execute {
+                            val result =
+                                ShanTranslit.taiToEngWithoutToneSideBySide(input.text.toString())
+                            runOnUiThread {
+                                output.setText(result)
+                                binding.layoutMain.loading.visibility = GONE
+                                binding.layoutMain.ui.alpha = 1f
+                            }
+                        }
+                    }
+
+                    rb4.isChecked -> {
+                        binding.layoutMain.loading.visibility = VISIBLE
+                        binding.layoutMain.ui.alpha = 0.3f
+                        executorService.execute {
+                            val result =
+                                ShanTranslit.taiToEngWithoutToneSideBySide(input.text.toString())
+                            runOnUiThread {
+                                binding.layoutMain.loading.visibility = GONE
+                                binding.layoutMain.ui.alpha = 1f
+                                output.setText(result)
+                            }
+                        }
+                    }
 
                     rb5.isChecked -> {
                         val converted =
                             ShanTranslit.taiToEngWithoutToneUpsideDown(input.text.toString())
-                        result = converted.shan + "\n" + converted.eng
+                        output.setText(converted.shan + "\n" + converted.eng)
                     }
 
                     rb6.isChecked -> {
                         val converted =
                             ShanTranslit.taiToEngWithToneUpsideDown(input.text.toString())
-                        result = converted.shan + "\n" + converted.eng
+                        output.setText(converted.shan + "\n" + converted.eng)
                     }
                 }
             } else {
-                result = ShanTranslit.engToShn(input.text.toString())
+                output.setText(ShanTranslit.engToShn(input.text.toString()))
             }
 
-            output.setText(result)
         }
 
     }

@@ -23,5 +23,10 @@
     <color name="rbColor">#420F19</color>
     <color name="rbColorSelected">#771F02</color>
     <color name="bgColor">#887E2811</color>
+    <color name="loading">#FFF</color>
+
+    <color name="color_preloader_start">#000000</color>
+    <color name="color_preloader_center">#000000</color>
+    <color name="color_preloader_end">#ff56a9c7</color>
 
 </resources>
