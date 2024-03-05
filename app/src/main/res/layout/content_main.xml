@@ -58,7 +58,8 @@
             android:gravity="top"
             android:hint="Input"
             android:paddingStart="10dp"
-            android:paddingEnd="10dp">
+            android:paddingEnd="10dp"
+            android:paddingBottom="10dp">
 
 
             <com.google.android.material.textfield.TextInputEditText
@@ -214,7 +215,6 @@
                 android:id="@+id/edOutputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignParentTop="true"
                 android:hint="Output"
                 android:padding="10dp">
 
