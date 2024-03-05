@@ -7,5 +7,5 @@
             <corners android:radius="5dp" />
         </shape>
     </item>
-    <item android:drawable="@drawable/radio_flat_selector" />
+    <item android:drawable="@drawable/clear_button" />
 </ripple>

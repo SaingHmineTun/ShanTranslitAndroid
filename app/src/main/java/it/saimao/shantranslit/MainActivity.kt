@@ -3,6 +3,7 @@ package it.saimao.shantranslit
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -33,6 +34,8 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
     private lateinit var rb5: RadioButton
     private lateinit var rb6: RadioButton
     private lateinit var executorService: ExecutorService
+    private lateinit var rg1Listener: (RadioGroup, Int) -> Unit
+    private lateinit var rg2Listener: (RadioGroup, Int) -> Unit
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,15 +57,25 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
         rg1 = binding.layoutMain.rg1
         rg2 = binding.layoutMain.rg2
 
-        rg1.setOnCheckedChangeListener { rg, id ->
-            if (id != -1)
+        rg1Listener = { _, id ->
+            if (id != -1 && rg2.checkedRadioButtonId != -1) {
+                rg2.setOnCheckedChangeListener(null)
                 rg2.clearCheck()
+                rg2.setOnCheckedChangeListener(rg2Listener)
+            }
         }
 
-        rg2.setOnCheckedChangeListener { rg, id ->
-            if (id != -1)
+        rg2Listener = { _, id ->
+            if (id != -1 && rg1.checkedRadioButtonId != -1) {
+                rg1.setOnCheckedChangeListener(null)
                 rg1.clearCheck()
+                rg1.setOnCheckedChangeListener(rg1Listener)
+            }
         }
+
+        rg1.setOnCheckedChangeListener(rg1Listener)
+
+        rg2.setOnCheckedChangeListener(rg2Listener)
 
         rb1 = binding.layoutMain.rb1
         rb2 = binding.layoutMain.rb2
@@ -104,63 +117,65 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
 
     }
 
+    fun setShnToEngTextAsync(rbSelected: Int, inputText: String) {
+
+        binding.layoutMain.loading.visibility = VISIBLE
+        executorService.execute {
+            val result: String = when (rbSelected) {
+                1 ->
+                    ShanTranslit.taiToEngWithoutTone(inputText)
+
+                2 ->
+                    ShanTranslit.taiToEngWithTone(inputText)
+
+                3 ->
+                    ShanTranslit.taiToEngWithoutToneSideBySide(inputText)
+
+                4 ->
+                    ShanTranslit.taiToEngWithToneSideBySide(inputText)
+
+                5 -> {
+                    val s = ShanTranslit.taiToEngWithoutToneUpsideDown(inputText)
+                    "${s.shan}\n${s.eng}"
+                }
+
+                6 -> {
+                    val s = ShanTranslit.taiToEngWithToneUpsideDown(inputText)
+                    "${s.shan}\n${s.eng}"
+                }
+
+                else -> ShanTranslit.engToShn(input.text.toString())
+            }
+            runOnUiThread {
+                output.setText(result)
+                binding.layoutMain.loading.visibility = GONE
+            }
+        }
+    }
+
     private fun convert(view: View?) {
 
-        if (input.text.isNotEmpty()) {
+        val inputText = input.text.toString()
+
+        if (inputText.isNotEmpty()) {
 
 
             if (binding.layoutMain.rbShnToEng.isChecked) {
                 when {
-                    rb1.isChecked -> output.setText(
-                        ShanTranslit.taiToEngWithoutTone(input.text.toString())
-                    )
+                    rb1.isChecked -> setShnToEngTextAsync(1, inputText)
 
-                    rb2.isChecked -> output.setText(
-                        ShanTranslit.taiToEngWithTone(input.text.toString())
-                    )
+                    rb2.isChecked -> setShnToEngTextAsync(2, inputText)
 
-                    rb3.isChecked -> {
-                        binding.layoutMain.loading.visibility = VISIBLE
-                        binding.layoutMain.ui.alpha = 0.3f
-                        executorService.execute {
-                            val result =
-                                ShanTranslit.taiToEngWithoutToneSideBySide(input.text.toString())
-                            runOnUiThread {
-                                output.setText(result)
-                                binding.layoutMain.loading.visibility = GONE
-                                binding.layoutMain.ui.alpha = 1f
-                            }
-                        }
-                    }
+                    rb3.isChecked -> setShnToEngTextAsync(3, inputText)
 
-                    rb4.isChecked -> {
-                        binding.layoutMain.loading.visibility = VISIBLE
-                        binding.layoutMain.ui.alpha = 0.3f
-                        executorService.execute {
-                            val result =
-                                ShanTranslit.taiToEngWithoutToneSideBySide(input.text.toString())
-                            runOnUiThread {
-                                binding.layoutMain.loading.visibility = GONE
-                                binding.layoutMain.ui.alpha = 1f
-                                output.setText(result)
-                            }
-                        }
-                    }
+                    rb4.isChecked -> setShnToEngTextAsync(4, inputText)
 
-                    rb5.isChecked -> {
-                        val converted =
-                            ShanTranslit.taiToEngWithoutToneUpsideDown(input.text.toString())
-                        output.setText(converted.shan + "\n" + converted.eng)
-                    }
+                    rb5.isChecked -> setShnToEngTextAsync(5, inputText)
 
-                    rb6.isChecked -> {
-                        val converted =
-                            ShanTranslit.taiToEngWithToneUpsideDown(input.text.toString())
-                        output.setText(converted.shan + "\n" + converted.eng)
-                    }
+                    rb6.isChecked -> setShnToEngTextAsync(6, inputText)
                 }
             } else {
-                output.setText(ShanTranslit.engToShn(input.text.toString()))
+                setShnToEngTextAsync(7, inputText)
             }
 
         }

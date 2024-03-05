@@ -817,7 +817,7 @@ public class ShanTranslit {
         output = output.replaceAll("\\u1082", "w");
 
 
-        /**
+        /*
          * တႃႇတူၼ်းသဵင် 6 တူၼ်း
          * ယၵ်း ၊ ယၵ်းၸမ်ႈ ၊ ၸမ်ႈၼႃႈ ၊ ၸမ်ႈတႂ်ႈ ၊ ယၵ်းၶိုၼ်ႈ
          */
