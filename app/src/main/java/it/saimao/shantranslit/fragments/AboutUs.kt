@@ -68,14 +68,14 @@ class AboutUs : Fragment(), AdapterView.OnItemClickListener {
             startActivity(
                 Intent(
                     Intent.ACTION_VIEW,
-                    Uri.parse("https://github.com/SaingHmineTun/TMKTaiLeConverter")
+                    Uri.parse("https://github.com/SaingHmineTun/ShanTranslitAndroid")
                 )
             )
         } else if (i == 3) {
             startActivity(
                 Intent(
                     Intent.ACTION_VIEW,
-                    Uri.parse("market://details?id=it.saimao.tmktaileconverter")
+                    Uri.parse("market://details?id=it.saimao.shantranslit")
                 )
             )
         }
