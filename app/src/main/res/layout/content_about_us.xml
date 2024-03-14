@@ -16,7 +16,7 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:contentDescription="@string/we_are_tmk_group"
-        android:scaleType="fitStart"
+        android:scaleType="fitCenter"
         android:src="@drawable/tmklogo" />
 
     <ListView
