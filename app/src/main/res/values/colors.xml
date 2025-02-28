@@ -22,7 +22,7 @@
     <color name="btColor">#541E1B</color>
     <color name="rbColor">#420F19</color>
     <color name="rbColorSelected">#771F02</color>
-    <color name="bgColor">#887E2811</color>
+    <color name="bgColor">#337E2811</color>
     <color name="loading">#FFF</color>
 
     <color name="color_preloader_start">#000000</color>

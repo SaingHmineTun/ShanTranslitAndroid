@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.ShanTranslit" parent="Theme.Material3.Light.NoActionBar">
         <!-- Customize your light theme here. -->
-         <item name="colorPrimary">@color/bgColor</item>
+         <item name="colorPrimary">@color/rbColorSelected</item>
         <item name="android:statusBarColor">@color/rbColor</item>
     </style>
 

@@ -1,1 +1,1 @@
-This is an Android Appliccation for transliterating between Shan and English.
+This is an Android Application for transliterating between Shan and English.

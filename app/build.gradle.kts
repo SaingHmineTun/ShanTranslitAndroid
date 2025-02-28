@@ -6,14 +6,14 @@ plugins {
 
 android {
     namespace = "it.saimao.shantranslit"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "it.saimao.shantranslit"
         minSdk = 24
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0.0"
+        versionCode = 2
+        versionName = "1.1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
